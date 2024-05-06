@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="whiteRare">#F8F8FA</color>
+    <color name="headLineRed">#FF0000</color>
+    <color name="mainYellow">#FF9900</color>
+    <color name="lightText">#AEAEAE</color>
+    <color name="textHeadLines">#027FC0</color>
+
+
+
+</resources>
