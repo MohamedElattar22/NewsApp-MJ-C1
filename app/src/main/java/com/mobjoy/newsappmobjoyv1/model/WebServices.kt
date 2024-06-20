@@ -21,4 +21,13 @@ interface WebServices {
     ):ArticlesResponse
 
 
+    @GET("v2/everything")
+    suspend fun searchFromNews(
+        @Query("apiKey") apiKey: String = Constansts.API_KEY,
+        @Query("q") query:String
+    ):ArticlesResponse
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.mobjoy.newsappmobjoyv1.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +27,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        viewBinding.sendQueryBtn.setOnClickListener {
+            if (viewBinding.searchET.text.toString().isNotEmpty()) {
+                searchNews()
+            } else {
+                viewModel.getNewsFromAPI()
 
+            }
+        }
 
+    }
+
+    private fun searchNews() {
+        viewModel.searchNewsFromAPI(viewBinding.searchET.text.toString())
     }
 
     override fun onStart() {
@@ -39,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         viewBinding.newsRV.adapter = adapter
+
+
         observeToLiveData()
     }
 
@@ -47,9 +61,19 @@ class MainActivity : AppCompatActivity() {
         viewModel.newsLiveData.observe(this){ item->
             adapter.bindNews(item)
         }
+
+
+        // Observe searchNews for search results
+        viewModel.searchNews.observe(this) { searchResults ->
+            adapter.bindNews(searchResults)
+        }
+
+
         viewModel.showError.observe(this){errorText ->
             Toast.makeText(this, errorText.toString() , Toast.LENGTH_SHORT).show()
+            Log.d("MainActivity", "observeToLiveData: $errorText")
         }
+
     }
 
 
